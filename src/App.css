@@ -1,0 +1,138 @@
+/* General card styles */
+
+/* General layout */
+.app {
+  text-align: center;
+  /* Center all content within the app container */
+}
+
+/* Header styling */
+.header {
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #f0f0f0;
+  /* Adjust color as needed */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  /* Change the default font family */
+  background-color: #222;
+  /* Change the body background color */
+  color: #f0f0f0;
+  /* Adjust text color */
+}
+
+.planet-card-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* Distribute cards evenly with margins on sides */
+}
+
+.planet-card {
+  background-color: #333;
+  /* Change card background color */
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  min-height: 40vh;
+  /* Fixed height for each card */
+  display: flex;
+  flex-direction: column;
+}
+
+.planet-card h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* Reduce margin between heading and paragraph */
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #f0f0f0;
+  /* Adjust text color */
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  /* Change font family for headings */
+}
+
+.planet-card p {
+  margin: 0;
+  /* Remove default margin */
+  font-size: 1.2rem;
+  color: #ccc;
+  /* Adjust text color */
+  flex-grow: 1;
+  /* Allow paragraph to expand to fill remaining space */
+  line-height: 1.6;
+  /* Increase line height for better readability */
+  font-family: 'Arial', sans-serif;
+  /* Change font family for paragraphs */
+}
+
+.planet-card button {
+  background-color: #4caf50;
+  /* Change button background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  /* Increase padding horizontally */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: center;
+  /* Center-align button */
+  font-family: 'Arial', sans-serif;
+  /* Change font family for buttons */
+}
+
+.planet-card button:hover {
+  background-color: #388e3c;
+  /* Change button background color on hover */
+}
+
+/* Additional styles for the resident list */
+.resident-list-container {
+  margin-top: 20px;
+  /* Add margin to separate resident list from the button */
+}
+
+.resident-list-item {
+  margin-bottom: 10px;
+  /* Add space between each resident */
+}
+
+.resident-list-item p {
+  margin: 1px;
+  /* Adjust margin */
+  font-size: 1.2rem;
+  /* Adjust font size */
+  color: #ccc;
+  /* Adjust color */
+  line-height: 1.6;
+  /* Adjust line height */
+  font-family: 'Arial', sans-serif;
+  /* Change font family for paragraphs */
+}
+
+.resident-list-item h3 {
+  margin: 5px 0;
+  /* Add margin above and below resident name */
+  font-size: 1.6rem;
+  /* Adjust font size */
+  font-weight: bold;
+  /* Add font weight */
+  color: #f0f0f0;
+  /* Adjust color */
+  text-transform: capitalize;
+  /* Capitalize the resident name */
+  font-family: 'Arial', sans-serif;
+  /* Change font family for headings */
+}
+
