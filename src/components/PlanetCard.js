@@ -1,32 +1,26 @@
 import React, { useState, useEffect } from "react";
 import ResidentList from "./ResidentList";
 import swapapiService from "../Services/swapapiService";
-import "../App.css"; // Import the CSS file
+import "../App.css";
 
-const PlanetCard = ({ planet }) => {
-  const [residents, setResidents] = useState([]);
-  const [loadingResidents, setLoadingResidents] = useState(true);
+const PlanetCard = ({ planet, onResidenceDataLoaded, residents }) => {
   const [showAllResidents, setShowAllResidents] = useState(false);
+
+  const loadingResidents =
+    planet.residents.length > 0 && residents.length === 0;
 
   useEffect(() => {
     const fetchResidents = async () => {
+      if (residents.length || planet.residents.length === 0) return;
       try {
-        setLoadingResidents(true);
-
-        // Check if planet has residents before fetching data
         if (planet.residents.length > 0) {
           const residentData = await swapapiService.fetchResidents(
             planet.residents
           );
-          setResidents(residentData);
-        } else {
-          // Set residents to empty array if no residents
-          setResidents([]);
+          onResidenceDataLoaded(planet.url, residentData);
         }
       } catch (error) {
         console.error("Error fetching residents:", error);
-      } finally {
-        setLoadingResidents(false);
       }
     };
 
@@ -76,4 +70,4 @@ const PlanetCard = ({ planet }) => {
   );
 };
 
-export default PlanetCard;
+export default React.memo(PlanetCard);

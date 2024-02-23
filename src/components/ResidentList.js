@@ -1,5 +1,4 @@
-// ResidentList.js
-import React from 'react';
+import React from "react";
 
 const ResidentList = ({ residents }) => {
   return (
@@ -8,7 +7,8 @@ const ResidentList = ({ residents }) => {
       <ul>
         {residents.map((resident, index) => (
           <li key={index}>
-            {resident.name} - Height: {resident.height}, Mass: {resident.mass}, Gender: {resident.gender}
+            {resident.name} - Height: {resident.height}, Mass: {resident.mass},
+            Gender: {resident.gender}
           </li>
         ))}
       </ul>

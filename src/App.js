@@ -1,55 +1,97 @@
-// App.js
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import PlanetCard from "./components/PlanetCard";
-import ResidentList from "./components/ResidentList.js";
 import Pagination from "./components/Pagination.js";
 import swapiService from "./Services/swapapiService.js";
 import "./App.css";
 
+const PAGE_SIZE = 10;
+
+const a = [];
+
 const App = () => {
-  const [planets, setPlanets] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-  const planetsPerPage = 9; // Set the number of planets per page
+  const [planets, setPlanets] = useState([]);
+  const [pageInfo, setPageInfo] = useState({
+    count: 0,
+    currentPage: 1,
+    loadedPages: [],
+  });
+  const [residents, setResidence] = useState({});
+
+  const { count, currentPage, loadedPages } = pageInfo;
+  const totalPages = Math.ceil(count / PAGE_SIZE);
+
+  const currentPageDataIndex = (currentPage - 1) * PAGE_SIZE;
+  const currentPagePlanets = planets.slice(
+    currentPageDataIndex,
+    currentPageDataIndex + PAGE_SIZE
+  );
+
+  const fetchPlanets = async () => {
+    try {
+      setLoading(true);
+      const data = await swapiService.fetchPlanets(currentPage);
+      setPlanets((state) => [...state, ...data.results]);
+      setPageInfo((state) => ({
+        ...state,
+        count: data.count,
+        loadedPages: [...state.loadedPages, currentPage],
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchPlanets = async () => {
-      try {
-        setLoading(true);
-        const data = await swapiService.fetchPlanets(currentPage);
-        setPlanets(data.results);
-        setTotalPages(Math.ceil(data.count / planetsPerPage));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const hasCurrentPageDataLoaded = loadedPages.includes(currentPage);
 
-    fetchPlanets();
+    if (!hasCurrentPageDataLoaded) {
+      fetchPlanets();
+    }
   }, [currentPage]);
+
+  const onPageChange = (newPage) => {
+    setPageInfo((state) => ({
+      ...state,
+      currentPage: newPage,
+    }));
+  };
+
+  const onResidenceDataLoaded = useCallback((planet, residents) => {
+    setResidence((state) => ({
+      ...state,
+      [planet]: residents,
+    }));
+  }, []);
+
+  const renderPlanet = (planet) => {
+    const currentPlanetId = planet.url;
+    const currentPlanetResidents = residents[currentPlanetId] ?? [];
+
+    return (
+      <PlanetCard
+        key={currentPlanetId}
+        residents={currentPlanetResidents}
+        onResidenceDataLoaded={onResidenceDataLoaded}
+        planet={planet}
+      />
+    );
+  };
 
   return (
     <Router>
       <div className="app">
         <h1 className="header">Star Wars Planets Directory</h1>
         <div className="planet-cards-container">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <>
-              {planets.map((planet) => (
-                <PlanetCard key={planet.name} planet={planet} />
-              ))}
-            </>
-          )}
+          {!loading ? currentPagePlanets.map(renderPlanet) : <p>Loading...</p>}
         </div>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={setCurrentPage}
+          onPageChange={onPageChange}
         />
       </div>
     </Router>
