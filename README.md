@@ -10,7 +10,6 @@ https://star-wars-planet-sigma.vercel.app/
 -Caching of planet and residents data to reduce number of api calls.
 -Paginated display of planets.
 -Responsive design for a seamless experience on different devices.
-
 ## Setup
 
 Follow these steps to set up the project locally:
@@ -18,9 +17,9 @@ Follow these steps to set up the project locally:
 1. **Clone the repository:**
 
    ```bash
-  https://github.com/JATIN269260/Star-Wars-Planet.git
-  cd star-war-planet
-   ``
+   https://github.com/JATIN269260/Star-Wars-Planet.git
+   cd Star-Wars-Planet
+   ```
 
 2. **Install dependencies:**
 
@@ -37,7 +36,9 @@ Follow these steps to set up the project locally:
 ## Usage
 
 1.On default load of app information for first ten planets will be displayed and the the first resident data will be shown by default in card.
+
 2.To see data for more residents click on "show all residents" button and click on "show less residents" to cut short card details.
+
 3.Click on right side arrow to look information for other planets.
 
 ## Technologies Used
