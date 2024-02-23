@@ -18,8 +18,9 @@ Follow these steps to set up the project locally:
 1. **Clone the repository:**
 
    ```bash
-Hello
-   ```
+  https://github.com/JATIN269260/Star-Wars-Planet.git
+  cd star-war-planet
+   ``
 
 2. **Install dependencies:**
 
